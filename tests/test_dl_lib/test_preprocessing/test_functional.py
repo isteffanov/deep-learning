@@ -10,6 +10,7 @@ from dl_lib.preprocessing import functional
         ([], []),
         ([1], [0]),
         ([1, 1], [0, 0]),
+        ([7.0, 7.0, 7.0], [0.0, 0.0, 0.0]),
     ],
 )
 def test_min_max_normalize_when_all_values_equal_returns_all_zero_array(input, expected_output):
@@ -23,6 +24,7 @@ def test_min_max_normalize_when_all_values_equal_returns_all_zero_array(input, e
         ([10, 20, 30], [0, 0.5, 1]),
         ([-1, 0, 1], [0, 0.5, 1]),
         ([-10, -8, -5], [0, 0.4, 1]),
+        ([1.0, 2.0, 3.0, 4.0, 5.0], [0.0, 0.25, 0.5, 0.75, 1.0]),
     ],
 )
 def test_min_max_normalize_when_differing_values_returns_rescaled_array(input, expected_output):
