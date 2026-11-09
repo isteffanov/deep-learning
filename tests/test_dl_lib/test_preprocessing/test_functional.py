@@ -27,3 +27,19 @@ def test_min_max_normalize_when_all_values_equal_returns_all_zero_array(input, e
 )
 def test_min_max_normalize_when_differing_values_returns_rescaled_array(input, expected_output):
     np.testing.assert_allclose(functional.min_max_normalize(np.array(input)), np.array(expected_output))
+
+@pytest.mark.parametrize(
+    "input",
+    [
+        5,                                  # 0D: a single scalar
+        [[1, 2], [3, 4]],                   # 2D: a matrix
+        [[1, 2, 3]],                        # 2D: one row, but still 2D
+        [[1], [2], [3]],                    # 2D: one column
+        [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],  # 3D
+        np.empty((0, 3)),                   # 2D and empty
+    ],
+)
+def test_min_max_normalize_when_shape_is_not_1d_throws_exception(input):
+    with pytest.raises(ValueError):
+        functional.min_max_normalize(np.array(input))
+
