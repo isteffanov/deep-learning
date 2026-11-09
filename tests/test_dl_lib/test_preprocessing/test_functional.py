@@ -8,7 +8,8 @@ from dl_lib.preprocessing import functional
     ("input", "expected_output"),
     [
         ([], []),
-        ([1], [0])
+        ([1], [0]),
+        ([1, 1], [0, 0]),
     ],
 )
 def test_min_max_normalize_when_all_values_equal_returns_all_zero_array(input, expected_output):
