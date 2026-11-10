@@ -66,7 +66,26 @@ def test_standardize_when_all_values_equal_returns_all_zero_array(input, expecte
     ("input", "expected_output"),
     [
         ([0, 1], [-1, 1]),
+        ([2., 4., 4., 4., 5., 5., 7., 9.], [-1.5, -0.5, -0.5, -0.5, 0., 0., 1., 2.])
     ],
 )
 def test_standardize_when_differing_values_returns_rescaled_array(input, expected_output):
     np.testing.assert_allclose(functional.standardize(np.array(input)), np.array(expected_output))
+
+@pytest.mark.parametrize(
+    "input",
+    [
+        [0, 1, 2, 3, 4, 5],
+        [-10, -40, 10, 20, 5, 1],
+        [0, 0, 0, 0, 1],
+        [5, 4, 3, 2, 1],
+    ],
+)
+def test_standardize_returns_array_with_mean_0_std_1(input):
+    expected_mean = 0
+    expected_std = 1
+
+    result = functional.standardize(np.array(input))
+
+    assert result.mean() == pytest.approx(expected_mean)
+    assert result.std() == pytest.approx(expected_std)
