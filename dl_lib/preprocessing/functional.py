@@ -17,4 +17,13 @@ def min_max_normalize(array: np.ndarray) -> np.ndarray:
     return (array - min) / (max - min)
 
 def standardize(array: np.ndarray) -> np.ndarray:
-    return np.zeros(array.shape)
+    if len(array) == 0:
+            return np.array([])
+        
+    mean: float = array.mean()
+    std: float = array.std()
+
+    if std == 0:
+        return np.zeros(array.shape)
+
+    return (array - mean) / std
