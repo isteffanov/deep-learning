@@ -53,7 +53,10 @@ def test_min_max_normalize_when_shape_is_not_1d_throws_exception(input):
     ("input", "expected_output"),
     [
         ([], []),
-        ([0], [0])
+        ([0], [0]),
+        ([1], [0]),
+        ([1, 1], [0, 0]),
+        ([7., 7., 7.], [0, 0, 0])
     ],
 )
 def test_standardize_when_all_values_equal_returns_all_zero_array(input, expected_output):
