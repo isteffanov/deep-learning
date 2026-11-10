@@ -17,4 +17,4 @@ def min_max_normalize(array: np.ndarray) -> np.ndarray:
     return (array - min) / (max - min)
 
 def standardize(array: np.ndarray) -> np.ndarray:
-    return np.array([])
+    return np.zeros(array.shape)
