@@ -59,3 +59,47 @@ def test_mae_when_arrays_are_different_shape_raises_value_error(y_true, y_pred):
      with pytest.raises(ValueError):
         functional.mae(np.array(y_true), np.array(y_pred))
 
+
+# Mean Squared Error
+
+@pytest.mark.parametrize(
+    ("y_true", "y_pred", "expected_output"),
+    [
+        ([3.0, 5.0, 7.0, 9.0], [2.0, 6.0, 8.0, 7.0], 1.75),
+    ],
+)
+def test_mse_when_called_then_matches_hand_calculation(y_true, y_pred, expected_output):
+    assert np.isclose(functional.mse(np.array(y_true), np.array(y_pred)), expected_output)
+
+
+@pytest.mark.parametrize(
+    ("y_true", "y_pred"),
+    [
+        ([3.0, 5.0, 7.0, 9.0], [2.0, 6.0, 8.0, 7.0]),
+    ],
+)
+def test_mse_when_called_then_matches_torch_loss(y_true, y_pred):
+    y_true = np.array(y_true)
+    y_pred = np.array(y_pred)
+
+    expected_output = torch.nn.functional.mse_loss(
+                                    torch.from_numpy(y_pred),
+                                    torch.from_numpy(y_true)).item()
+
+    assert np.isclose(functional.mse(y_pred, y_true), expected_output)
+
+@pytest.mark.parametrize(
+    ("y_true", "y_pred_close", "y_pred_far"),
+    [
+        ([1.0, 1.0, 1.0, 1.0], [2.0, 1.0, 1.0, 1.0], [10.0, 1.0, 1.0, 1.0]),
+    ],
+)
+def test_when_one_prediction_is_far_off_then_penalizes_it_more_than_mae_does(y_true, y_pred_close, y_pred_far):
+    y_true = np.array(y_true)
+    y_pred_close = np.array(y_pred_close)
+    y_pred_far = np.array(y_pred_far)
+
+    mae_ratio = functional.mae(y_true, y_pred_far) / functional.mae(y_true, y_pred_close)
+    mse_ratio = functional.mse(y_true, y_pred_far) / functional.mse(y_true, y_pred_close)
+
+    assert np.greater(mse_ratio, mae_ratio)
