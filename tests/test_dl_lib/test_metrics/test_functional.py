@@ -26,3 +26,17 @@ def test_apply_threshold_when_threshold_rises_then_fewer_predictions_are_positiv
 
         # Assert
         assert low_threshold_positives > high_threshold_positives
+
+# Confusion Matrix
+
+def test_confusion_matrix_when_called_then_counts_each_quadrant():
+    # Arrange
+    y_true = np.array([1, 0, 1, 0, 1])
+    y_pred = np.array([1, 0, 0, 1, 1])
+    expected = {'tp': 2, 'tn': 1, 'fp': 1, 'fn': 1}
+
+    # Act
+    actual = functional.confusion_matrix(y_true, y_pred)
+
+    # Assert
+    assert actual == expected
