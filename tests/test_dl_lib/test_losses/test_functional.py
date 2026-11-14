@@ -103,3 +103,29 @@ def test_when_one_prediction_is_far_off_then_penalizes_it_more_than_mae_does(y_t
     mse_ratio = functional.mse(y_true, y_pred_far) / functional.mse(y_true, y_pred_close)
 
     assert np.greater(mse_ratio, mae_ratio)
+
+# Root Mean Squared Error
+
+@pytest.mark.parametrize(
+    ("y_true", "y_pred", "expected_output"),
+    [
+        ([3.0, 5.0, 7.0, 9.0], [2.0, 6.0, 8.0, 7.0], 1.3229),
+    ],
+)
+def test_rmse_when_called_then_matches_hand_calculation(y_true, y_pred, expected_output):
+    np.testing.assert_almost_equal(functional.rmse(np.array(y_true), np.array(y_pred)), expected_output, decimal=4)
+
+@pytest.mark.parametrize(
+    ("y_true", "y_pred"),
+    [
+        ([3.0, 5.0, 7.0, 9.0], [2.0, 6.0, 8.0, 7.0]),
+    ],
+)
+def test_when_called_then_equals_square_root_of_mse(y_true, y_pred):
+        y_true = np.array(y_true)
+        y_pred = np.array(y_pred)
+        expected = np.sqrt(functional.mse(y_true, y_pred))
+
+        actual = functional.rmse(y_true, y_pred)
+
+        np.testing.assert_almost_equal(actual, expected)

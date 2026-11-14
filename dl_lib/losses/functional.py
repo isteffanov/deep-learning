@@ -12,6 +12,13 @@ def mse(y_true: np.ndarray, y_pred: np.ndarray) -> np.float32:
     return np.mean(np.square(y_true - y_pred))
 
 
+def rmse(y_true: np.ndarray, y_pred:np.ndarray) -> np.float32:
+    _validate(y_true, y_pred)
+
+    # double validation - not ideal
+    return np.sqrt(mse(y_true, y_pred))
+
+
 def _validate(y_true: np.ndarray, y_pred: np.ndarray) -> None:
     if (y_true.shape != y_pred.shape):
         raise ValueError(f"mae: Cannot find the mean of arrays with different shape: {y_true.shape} and {y_pred.shape}")
