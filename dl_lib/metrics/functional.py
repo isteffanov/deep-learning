@@ -23,3 +23,26 @@ def confusion_matrix(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, int]:
          "fp": np.sum(np.logical_not(y_true) & y_pred),
          "fn": np.sum(y_true & np.logical_not(y_pred))
     }
+
+def accuracy(y_true: np.ndarray, y_pred: np.ndarray) -> np.float32:
+    cm = confusion_matrix(y_true, y_pred)
+    correct = cm['tp'] + cm['tn']
+    all_val = cm['tp'] + cm['tn'] + cm['fp'] + cm['fn']
+
+    return np.float32(correct / all_val)
+
+def precision(y_true: np.ndarray, y_pred: np.ndarray) -> np.float32:
+    cm = confusion_matrix(y_true, y_pred)
+
+    return np.float32(cm['tp'] / (cm['tp'] + cm['fp'] + 1.e-6))
+
+def recall(y_true: np.ndarray, y_pred: np.ndarray) -> np.float32:
+    cm = confusion_matrix(y_true, y_pred)
+
+    return np.float32(cm['tp'] / (cm['tp'] + cm['fn'] + 1.e-6))
+
+def f1_score(y_true: np.ndarray, y_pred: np.ndarray) -> np.float32:
+    p = precision(y_true, y_pred)
+    r = recall(y_true, y_pred)
+    
+    return 2 * (p * r) / (p + r + 1.e-6)
