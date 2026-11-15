@@ -32,3 +32,19 @@ def test_initialize_weights_when_seed_is_fixed_then_result_is_reproducible(low, 
 
     # Assert
     np.testing.assert_array_equal(first, second)
+
+# Forward
+
+@pytest.mark.parametrize(
+    ("x", "weights", "expected"),
+    [
+        (np.array([]), np.array([]), 0),
+        (np.array([2.0, 3.0]), np.array([1.0, 2.0]), 8)
+    ]
+)
+def test_forward_when_activation_is_none_then_returns_the_weighted_sum(x, weights, expected):
+    # Act
+    actual = functional.forward(x, weights)
+
+    # Assert
+    assert pytest.approx(expected) == actual
