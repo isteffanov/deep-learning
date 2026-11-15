@@ -53,6 +53,7 @@ def test_forward_when_activation_is_none_then_returns_the_weighted_sum(x, weight
     ("x", "weights", "bias", "expected"),
     [
         (np.array([]), np.array([]), 1.0, 1.0),
+        (np.array([2.0, 3.0]), np.array([1.0, 2.0]), 0.5, 8.5)
     ]
 )
 def test_forward_when_activation_is_none_has_bias_then_returns_the_weighted_sum_plus_bias(x, weights, bias, expected):
