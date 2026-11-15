@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
 
+from dl_lib.activations.functional import sigmoid
 from dl_lib.perceptron import functional
 
 @pytest.mark.parametrize(
@@ -62,3 +63,16 @@ def test_forward_when_activation_is_none_has_bias_then_returns_the_weighted_sum_
 
     # Assert
     assert pytest.approx(expected) == actual
+
+@pytest.mark.parametrize(
+    ("x", "weights", "bias", "expected"),
+    [
+        (np.array([1.0]), np.array([0.0]), 0.0, 0.5),
+    ]
+)
+def test_forward_when_an_activation_is_given_then_applies_it_to_the_weighted_sum(x, weights, bias, expected):
+    # Act
+    actual = functional.forward(x, weights, bias=bias, activation=sigmoid)
+
+    # Assert
+    assert pytest.approx(actual) == expected
