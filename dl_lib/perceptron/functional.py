@@ -5,4 +5,4 @@ def initialize_weights(low: float, high: float, size: int, seed: int = 0) -> np.
     return rng.uniform(low, high, size=size)
 
 def forward(x: np.ndarray, weights: np.ndarray, bias: float = 0.0) -> np.ndarray:
-    return np.dot(x, weights)
+    return np.dot(x, weights) + bias
