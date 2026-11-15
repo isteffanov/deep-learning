@@ -48,3 +48,16 @@ def test_forward_when_activation_is_none_then_returns_the_weighted_sum(x, weight
 
     # Assert
     assert pytest.approx(expected) == actual
+
+@pytest.mark.parametrize(
+    ("x", "weights", "bias", "expected"),
+    [
+        (np.array([]), np.array([]), 1.0, 1.0),
+    ]
+)
+def test_forward_when_activation_is_none_has_bias_then_returns_the_weighted_sum_plus_bias(x, weights, bias, expected):
+    # Act
+    actual = functional.forward(x, weights, bias=bias)
+
+    # Assert
+    assert pytest.approx(expected) == actual
