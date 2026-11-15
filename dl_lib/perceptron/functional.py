@@ -31,3 +31,6 @@ def numerical_gradient(loss_fn: Callable[[np.ndarray], float], params: np.ndarra
         minus[idx] += h
 
     return grad
+
+def gradient_descent_step(params: np.ndarray, gradient: np.ndarray, learning_rate: float) -> np.ndarray:
+    return params - learning_rate * gradient
