@@ -19,3 +19,16 @@ def test_initialize_weights_when_called_then_returns_size_many_values_in_the_giv
     assert actual.shape == (size,)
     assert np.all(actual >= low)
     assert np.all(actual < high)
+
+@pytest.mark.parametrize(
+    ("low", "high", "seed"),
+    [
+        (0.0, 10.0, 42),
+    ]
+)
+def test_initialize_weights_when_seed_is_fixed_then_result_is_reproducible(low, high, seed):
+    first = functional.initialize_weights(low, high, size=3, seed=seed)
+    second = functional.initialize_weights(low, high, size=3, seed=seed)
+
+    # Assert
+    np.testing.assert_array_equal(first, second)
