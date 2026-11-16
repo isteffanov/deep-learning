@@ -82,8 +82,8 @@ def test_forward_when_an_activation_is_given_then_applies_it_to_the_weighted_sum
 
 def test_numerical_gradient_when_called_on_a_quadratic_loss_then_matches_the_analytical_derivative():
     # Arrange
-    def loss_fn(params: np.ndarray) -> float:
-        return float(np.sum(params**2))
+    def loss_fn(params: np.ndarray) -> np.float64:
+        return np.sum(params ** 2)
 
     params = np.array([3.0, -2.0])
     expected = np.array([6.0, -4.0])
@@ -96,8 +96,8 @@ def test_numerical_gradient_when_called_on_a_quadratic_loss_then_matches_the_ana
 
 def test_when_params_is_two_dimensional_then_gradient_matches_the_analytical_derivative():
     # Arrange
-    def loss_fn(params: np.ndarray) -> float:
-        return float(np.sum(params**2))
+    def loss_fn(params: np.ndarray) -> np.float64:
+        return np.sum(params**2)
 
     params = np.array([[3.0, -2.0], [1.0, 0.5]])
     expected = np.array([[6.0, -4.0], [2.0, 1.0]])
@@ -110,8 +110,8 @@ def test_when_params_is_two_dimensional_then_gradient_matches_the_analytical_der
 
 def test_when_called_then_leaves_params_unchanged():
     # Arrange
-    def loss_fn(params: np.ndarray) -> float:
-        return float(np.sum(params**2))
+    def loss_fn(params: np.ndarray) -> np.float64:
+        return np.sum(params ** 2)
 
     params = np.array([3.0, -2.0])
     expected = np.array([3.0, -2.0])

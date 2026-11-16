@@ -16,7 +16,7 @@ def forward(x: np.ndarray, weights: np.ndarray, bias: float = 0.0, activation: C
 # also
 # - Forward difference: (L(params + h) − L(params)) / h
 # - Backward difference: (L(params) - L(params - h) / h
-def numerical_gradient(loss_fn: Callable[[np.ndarray], float], params: np.ndarray) -> np.ndarray:
+def numerical_gradient(loss_fn: Callable[[np.ndarray], np.float32], params: np.ndarray) -> np.ndarray:
     grad = np.zeros_like(params)
     plus = params.copy()
     minus = params.copy()
