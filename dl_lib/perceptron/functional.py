@@ -6,7 +6,7 @@ from dl_lib.losses.functional import mse
 
 h = 1.e-4
 
-def initialize_weights(low: float, high: float, size: int, seed: int = 0) -> np.ndarray:
+def initialize_weights(low: float, high: float, size: int, seed: int | None = None) -> np.ndarray:
     rng = np.random.default_rng(seed)
     return rng.uniform(low, high, size=size)
 
