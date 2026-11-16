@@ -176,12 +176,10 @@ def test_analytical_gradient_when_activation_given_then_matches_the_numerical_gr
     activation_derivative = lambda z: activation(z) * (1.0 - activation(z))
 
     weights_loss = lambda w: functional.dataset_loss(features, targets, w, bias, activation=activation)
-    bias_loss = lambda b: functional.dataset_loss_given_bias(features, targets, weights, b, activation=activation)
+    bias_loss = lambda b: functional.dataset_loss(features, targets, weights, b, activation=activation)
 
     expected_weight_gradient = functional.numerical_gradient(weights_loss, weights)
-    expected_bias_gradient = functional.numerical_gradient(
-        bias_loss, np.array([bias])
-    )[0]
+    expected_bias_gradient = functional.numerical_gradient(bias_loss, np.array([bias]))[0]
 
     # Act
     actual_weight_gradient, actual_bias_gradient = functional.analytical_gradient(
@@ -220,7 +218,7 @@ def test_analytical_gradient_when_bce_loss_then_matches_the_numerical_gradient_w
         activation=activation,
         loss=binary_cross_entropy,
     )
-    bias_loss = lambda b: functional.dataset_loss_given_bias(
+    bias_loss = lambda b: functional.dataset_loss(
         features,
         targets,
         weights,
@@ -229,9 +227,7 @@ def test_analytical_gradient_when_bce_loss_then_matches_the_numerical_gradient_w
         loss=binary_cross_entropy,
     )
     expected_weight_gradient = functional.numerical_gradient(weights_loss, weights)
-    expected_bias_gradient = functional.numerical_gradient(
-        bias_loss, np.array([bias])
-    )[0]
+    expected_bias_gradient = functional.numerical_gradient(bias_loss, np.array([bias]))[0]
 
     # Act
     actual_weight_gradient, actual_bias_gradient = functional.analytical_gradient(

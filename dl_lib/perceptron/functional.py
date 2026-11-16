@@ -41,9 +41,6 @@ def dataset_loss(features: np.ndarray, targets, weights, bias = 0.0, activation 
     y_pred = np.array([forward(weights, x, bias, activation) for x in features]).reshape(targets.shape)
     return loss(targets, y_pred)
 
-def dataset_loss_given_bias(features, targets, weights, bias, activation = None, loss = mse) -> np.float32:
-    return dataset_loss(features, targets, weights, bias, activation, loss)
-
 def analytical_gradient(dataset, weights, bias = 0.0, activation = None, activation_derivative = None, loss = "mse") -> tuple[np.ndarray, np.float32]:
     if activation is None:
         activation = lambda x: x
