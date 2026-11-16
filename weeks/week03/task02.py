@@ -9,7 +9,7 @@ def main() -> int:
 
     weights = initialize_weights(0, 10, size=1, seed=42)
     y_true = np.array([y for _, y in dataset])
-    y_pred = np.array([forward(np.array([x]), weights) for x, _ in dataset])
+    y_pred = np.array([forward(np.array(x), weights) for x, _ in dataset])
 
     error = mse(y_true, y_pred)
 
